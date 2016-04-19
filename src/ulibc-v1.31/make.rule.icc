@@ -1,0 +1,17 @@
+CC          := icc
+CFLAGS      := -O2 -g3 -openmp -Wall -Wextra -std=c99
+LIBNAME     := libulibc.a
+ULIBC       := -lulibc
+CPPFLAGS    := $(addprefix -I, $(ULIBCDIR))
+LDFLAGS     := $(addprefix -L, $(ULIBCDIR))
+LDLIBS      := -lulibc -openmp -lm
+CP          := cp -rf
+RM          := rm -rf
+AR          := ar -rcus
+RANLIB      := ranlib
+
+### Local variables:
+### mode: makefile-bsdmake
+### coding: utf-8-unix
+### indent-tabs-mode: nil
+### End:

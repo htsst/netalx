@@ -1,0 +1,10 @@
+test_detect.o: test_detect.c ../ulibc.h
+test_interval.o: test_interval.c ../ulibc.h
+test_msort.o: test_msort.c ../ulibc.h
+test_numa.o: test_numa.c ../ulibc.h
+test_numa_omp.o: test_numa_omp.c ../ulibc.h
+test_pagesize.o: test_pagesize.c ../ulibc.h
+test_roundup.o: test_roundup.c ../common.h ../ulibc.h
+test_sqrt.o: test_sqrt.c ../ulibc.h
+test_sqrtlog.o: test_sqrtlog.c ../common.h ../ulibc.h
+test_string.o: test_string.c ../ulibc.h

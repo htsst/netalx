@@ -1,0 +1,56 @@
+common.o: common.c ulibc-v1.31/ulibc.h defs.h atomic.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h \
+  ulibc-v1.31/mempol.h
+construction.o: construction.c generation.h ulibc-v1.31/ulibc.h \
+  ulibc-v1.31/mempol.h defs.h kron_gene/graph_generator.h \
+  kron_gene/user_settings.h construction.h atomic.h
+construction_exmem.o: construction_exmem.c generation.h \
+  ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h dump.h external_full_construction_bucket.h
+construction_restore.o: construction_restore.c generation.h \
+  ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h dump.h
+dump.o: dump.c dump.h ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  generation.h kron_gene/graph_generator.h kron_gene/user_settings.h \
+  construction.h atomic.h ulibc-v1.31/common.h std_sort/std_sort.h \
+  parse_conf_file/parse_conf_file.h
+external_full_construction_bucket.o: external_full_construction_bucket.c \
+  generation.h ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h ulibc-v1.31/common.h dump.h std_sort/std_sort.h \
+  external_full_construction_bucket.h
+generation.o: generation.c generation.h ulibc-v1.31/ulibc.h \
+  ulibc-v1.31/mempol.h defs.h kron_gene/graph_generator.h \
+  kron_gene/user_settings.h
+generation_exmem.o: generation_exmem.c generation.h ulibc-v1.31/ulibc.h \
+  ulibc-v1.31/mempol.h defs.h kron_gene/graph_generator.h \
+  kron_gene/user_settings.h dump.h construction.h atomic.h
+generation_restore.o: generation_restore.c generation.h \
+  ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h dump.h \
+  construction.h atomic.h
+main.o: main.c generation.h ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h \
+  defs.h kron_gene/graph_generator.h kron_gene/user_settings.h \
+  construction.h atomic.h para_bfs_csr.h statistics.h dump.h
+para_bfs_csr_bitmap.o: para_bfs_csr_bitmap.c generation.h \
+  ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h para_bfs_csr.h validation.h statistics.h dump.h
+para_bfs_csr_bitmap_f_cmpcttree.o: para_bfs_csr_bitmap_f_cmpcttree.c \
+  generation.h ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h para_bfs_csr.h validation.h statistics.h dump.h
+statistics.o: statistics.c generation.h ulibc-v1.31/ulibc.h \
+  ulibc-v1.31/mempol.h defs.h kron_gene/graph_generator.h \
+  kron_gene/user_settings.h construction.h atomic.h para_bfs_csr.h \
+  validation.h log.h
+validation.o: validation.c generation.h ulibc-v1.31/ulibc.h \
+  ulibc-v1.31/mempol.h defs.h kron_gene/graph_generator.h \
+  kron_gene/user_settings.h construction.h atomic.h para_bfs_csr.h \
+  validation.h
+validation_fe_cmpcttree.o: validation_fe_cmpcttree.c generation.h \
+  ulibc-v1.31/ulibc.h ulibc-v1.31/mempol.h defs.h \
+  kron_gene/graph_generator.h kron_gene/user_settings.h construction.h \
+  atomic.h para_bfs_csr.h validation.h dump.h

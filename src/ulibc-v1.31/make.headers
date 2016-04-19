@@ -1,0 +1,6 @@
+detect.o: detect.c ulibc.h
+numa.o: numa.c ulibc.h common.h mempol.h
+sort.o: sort.c ulibc.h
+stdlib.o: stdlib.c ulibc.h
+string.o: string.c common.h ulibc.h
+timer.o: timer.c ulibc.h
