@@ -81,7 +81,7 @@ I64_t *external_full_graph_construction(struct edgelist_t *list, struct dumpfile
   mmap_edges(list, DF_E_sth);
 
   printf("open edgelist bucket files\n");
-  I64_t num_buckets = ROUNDUP(get_numa_num_threads(), list->num_lists);
+  I64_t num_buckets = ROUNDUP(ROUNDUP(get_numa_num_threads(), list->num_lists), 64);
   struct dumpfiles_t *DF_B = init_dumpfile_info_edgelist_bucket("", num_buckets);
   open_files_new(DF_B);
 
