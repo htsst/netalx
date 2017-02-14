@@ -17,17 +17,17 @@ We have tested on CentOS 6.7 machines.
 Just type the following commands.
 
 ```
-$ cd src  
+$ cd src
 $ make
 ```
 
 Then, we obtain the following three binaries.
 
-+ `graph500_exmem`  
++ `graph500_exmem`
 Out-of-core version with bucket-sort-based graph construction.
-+ `graph500`  
++ `graph500`
 In-core version.
-+ `graph500_restore`  
++ `graph500_restore`
 Out-of-core version without graph construction. Instead, restore a given graph that is constructed using *graph500_exmem* from NVM.
 
 ## Algorithm
@@ -46,59 +46,59 @@ Note that α is used to change to the bottom-up approach, and ß is used to retu
 ## Configurations
 ### Command Line Options
 
-+ `-s SCALE(=16)`  
++ `-s SCALE(=16)`
   Generate 2^SCALE vertices.
-+ `-e edgefactor(=16)`  
++ `-e edgefactor(=16)`
   Generate num\_vertices\*edgefactor edges.
-+ `-R`  
++ `-R`
   Use RMAT generator (default: Kronecker Graph).
-+ `-E`  
++ `-E`
   Enable energy loop mode. See Examples for the details.
-+ `-k α:ß (=64:4 for kronecker generator and =256:2 for RMAT generator)`  
++ `-k α:ß (=64:4 for kronecker generator and =256:2 for RMAT generator)`
   Specify the threshold parameters α and ß. α is used to change to the bottom-up approach from the top-down approach, and ß is used to return to the top-down approach from the bottom-up approach.
-+ `-P`  
++ `-P`
   Enable parameter turning mode. The PARAMRANGE environment variable is required for seeting the range of α and ß. See Examples for the details.
-+ `-a`  
++ `-a`
   Skip validation.
-+ `-P N`  
++ `-P N`
   Set number of threads to N.
-+ `-N`  
++ `-N`
   Set pinned config as Node-Major (default:Core-Major)).
-+ `-A`  
++ `-A`
   Disable hyper threading.
-+ `-m ONMEM_EDGES`  
++ `-m ONMEM_EDGES`
   Set the maximum number of edges stored on DRAM for each vertex. This option is valid for *graph500\_exm* and *graph500\_restore*.
-+ `-L`  
++ `-L`
   Share BFS tree data structure among the NUMA nodes. This option will reduce the DRAM consumption by O(#vertices) * (#NUMAS-1) with small (less than 10%) performance degradation. This option is valid for *graph500\_exm* and *graph500\_restore*.
-+ `-C`  
++ `-C`
   Disable to run BFS (lowmem, external, restore mode only). Only conduct graph generation and construction. This option is valid for *graph500\_exm* and *graph500\_restore* (lowmem, external, restore mode only).
-+ `-h, -v`  
++ `-h, -v`
   Print usage.
 
 ### Environment Variables
 
-+ `OMP_NUM_THREADS=NUMTHREADS(default: #cpus)`  
-  Set the number of threads. 
-+ `DUMP_DC=FILE`  
++ `OMP_NUM_THREADS=NUMTHREADS(default: #cpus)`
+  Set the number of threads.
++ `DUMP_DC=FILE`
   Dump degree centrality to FILE.
-+ `DUMP_DEGREE=FILE`  
++ `DUMP_DEGREE=FILE`
   Dump degree distribution to FILE.
-+ `DUMPEDGE=FILE`  
++ `DUMPEDGE=FILE`
   Dump edgelist (ID: 1,...,n) to FILE.
-+ `DUMPGRAPH=FILE`  
++ `DUMPGRAPH=FILE`
   Dump graph (ID: 1,...,n) to FILE.
-+ `ENERGY_LOOP_LIMIT=SECONDS`  
++ `ENERGY_LOOP_LIMIT=SECONDS`
   Set the time limit of energy loops.
-+ `PARAMRANGE=As:Ae:Bs:Be`  
++ `PARAMRANGE=As:Ae:Bs:Be`
   Set the range of parameters to α=[2^{As},2^{Ae}], ß=[2^{Bs},2^{Be}] for parameter tuning mode
-+ `EXMEM_CONF_FILE=FILE`  
++ `EXMEM_CONF_FILE=FILE`
   Read a configuration file (FILE) that specifies the data layout on NVMs. This variable is valid for *graph500\_exm* and *graph500\_restore*.
 
 ### Configuration File
 
 The configuration file, which is valid for *graph500\_exm* and *graph500\_restore*, specifies the data layout on NVMs.
 For a key, the corresponding value sets paths which are separated by colons(:).
-Note that you can specify the file name by setting the EXMEM\_CONF\_FILE environment variable (default: exmem.conf).  
+Note that you can specify the file name by setting the EXMEM\_CONF\_FILE environment variable (default: exmem.conf).
 
 Key|Description|Size
 ---|---|---
@@ -109,7 +109,7 @@ EDGEBCKT|Work space used in graph construction step (*only graph500\_exm*).  #fi
 
 ## Examples
 
-### Execute BFS to a graph with 2^26 vertices (SCALE26) using only DRAM with α = 128 and ß = 8 
+### Execute BFS to a graph with 2^26 vertices (SCALE26) using only DRAM with α = 128 and ß = 8
 
 ```
 $ ./graph500 -s 26 -k 128:8
@@ -128,12 +128,12 @@ $ PARAMRANGE=3:8:1:3 ./graph500 -s 26 -P
 ### Execute BFS to a SCALE28 graph using two NVM devices (/mnt/nvm0, /mnt/nvm1) with α = 128 and ß = 8, including out-of-core graph construction using 256 buckets
 
 ```
-$ cat exmem.conf  
-EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist  
-GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph  
-SRC /mnt/nvm/data_src  
-EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket  
-$ ./graph500_exm_bkt -s 28 -k 128:8 -b 256  
+$ cat exmem.conf
+EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist
+GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph
+SRC /mnt/nvm/data_src
+EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket
+$ ./graph500_exmem -s 28 -k 128:8 -b 256
 ```
 
 ### Execute BFS to a SCALE28 graph using a NVM device (/mnt/nvm) under the energy loop mode (100 sec.) by loading the edge list, the constructed graph, and the source vertices
@@ -142,17 +142,17 @@ After graph construciton, Energy Loop Mode conducts BFS without validiation repe
 This mode is useful for the Green Graph500 benchmark.
 
 ```
-$ cat exmem_restore.conf  
-EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist  
-GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph  
-SRC /mnt/nvm/data_src  
-EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket  
-$ EXMEM_CONF_FILE=exmem_restore.conf ENERGY_LOOP_LIMIT=100 ./graph500_restore -s 28 -E  
+$ cat exmem_restore.conf
+EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist
+GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph
+SRC /mnt/nvm/data_src
+EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket
+$ EXMEM_CONF_FILE=exmem_restore.conf ENERGY_LOOP_LIMIT=100 ./graph500_restore -s 28 -E
 ```
 
 ## Known Problems
 ### About Page Size
-NETALX assumes that the page size is approximately 4KB (2~4MB for huge page). 
+NETALX assumes that the page size is approximately 4KB (2~4MB for huge page).
 Therefore, if the size is much larger than our assumption, NETALX may consume huge memory spaces than the actual because memory spaces are rounded up to the page size.
 
 -----------------------
