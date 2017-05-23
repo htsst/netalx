@@ -131,7 +131,7 @@ $ PARAMRANGE=3:8:1:3 ./graph500 -s 26 -P
 $ cat exmem.conf
 EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist
 GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph
-SRC /mnt/nvm/data_src
+SRCS /mnt/nvm/data_src
 EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket
 $ ./graph500_exmem -s 28 -k 128:8 -b 256
 ```
@@ -145,7 +145,7 @@ This mode is useful for the Green Graph500 benchmark.
 $ cat exmem_restore.conf
 EDGELIST /mnt/nvm0/data_edgelist:/mnt/nvm1/data_edgelist
 GRAPH /mnt/nvm0/data_graph:/mnt/nvm1/data_graph
-SRC /mnt/nvm/data_src
+SRCS /mnt/nvm/data_src
 EDGEBCKT /mnt/nvm0/bucket:/mnt/nvm1/bucket
 $ EXMEM_CONF_FILE=exmem_restore.conf ENERGY_LOOP_LIMIT=100 ./graph500_restore -s 28 -E
 ```
